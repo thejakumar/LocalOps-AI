@@ -1,0 +1,3 @@
+2026-10-19T10:15:00Z ERROR System.NullReferenceException: Object reference not set to an instance of an object.
+   at Demo.OrderService.CalculateTotal(Order order) in OrderService.cs:line 12
+   at Demo.OrdersController.Post(Order order) in OrdersController.cs:line 24
