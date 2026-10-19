@@ -1,5 +1,6 @@
 import type { Report } from './types'
-const API = import.meta.env.VITE_API_URL || ''
+const configuredApi = import.meta.env.VITE_API_URL || ''
+const API = configuredApi && !/^https?:\/\//.test(configuredApi) ? `https://${configuredApi}` : configuredApi
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API}${path}`, init)
   if (!res.ok) { const detail = await res.text().catch(() => ''); throw new Error(detail || `Request failed (${res.status})`) }

@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: localops-ai-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: LOCALOPS_MODE
+        value: offline
+
+  - type: static
+    name: localops-ai-frontend
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    publishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: localops-ai-api
+          property: host
+        # Vite needs an absolute URL during its build; Render's host value is
+        # normalized by the build environment below through the API helper.

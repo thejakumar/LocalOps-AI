@@ -54,6 +54,17 @@ The backend image contains all backend tests and dependencies. To run the reprod
 docker run --rm --network none localops-ai-api python -m pytest -q
 ```
 
+## Free Render deployment
+
+The repository includes `render.yaml` for a free Render deployment with one Docker-backed API service and one static frontend service.
+
+1. Sign in to Render with the GitHub account that owns this repository.
+2. Choose **New → Blueprint** and select `thejakumar/LocalOps-AI`.
+3. Review the two services and deploy the blueprint.
+4. Wait for the API health check to pass, then open the frontend service URL.
+
+Render free services can sleep when idle. The static frontend receives the API host through `VITE_API_URL` during its build. If your Render account does not resolve the Blueprint reference automatically, set `VITE_API_URL` on the static site to the deployed API URL and trigger a new deploy.
+
 The frontend lockfile is committed; run `npm ci` once during image/dependency setup, then tests do not contact a model or external API.
 
 ## Offline semantics and safety
@@ -68,7 +79,9 @@ When no matching source is found, the report is `inconclusive` and does not inve
 
 ## Demo walkthrough
 
-1. Start API and frontend.
+See [`docs/walkthrough-script.md`](docs/walkthrough-script.md) for a timed 2–3 minute recording script and shot list.
+
+1. Start API and frontend, or open the deployed Render frontend URL.
 2. Click **Try sample incident** to show a grounded `System.NullReferenceException` report.
 3. Upload `tests/fixtures/incident.log` and a ZIP containing the files in `tests/fixtures/`.
 4. Expand **Tool trace** to show parser/search/read chronology.

@@ -1,7 +1,7 @@
 .PHONY: test backend-test frontend-test run build
 
 backend-test:
-	python -m pytest -q
+	python -m pytest -q --basetemp=.pytest-tmp
 
 frontend-test:
 	cd frontend && npm test -- --run
