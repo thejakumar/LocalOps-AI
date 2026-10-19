@@ -10,3 +10,4 @@ backend/.coverage
 .DS_Store
 localops-*/
 .opencode/
+frontend/tsconfig.tsbuildinfo
